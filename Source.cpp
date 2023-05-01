@@ -7,8 +7,7 @@ template <typename T>
 class List {
 public:
     List() {
-        head = nullptr;
-        tail = nullptr;
+        head = tail = nullptr;
         size = 0;
     }
 
