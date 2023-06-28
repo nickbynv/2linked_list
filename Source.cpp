@@ -24,22 +24,15 @@ public:
     }
 
     void clear() {
-        while (size) {
-            pop_front();
-        }
+        while (size) pop_front();
     }
 
     void push_front(T data) {
         Node* newNode = new Node(data);
         newNode->ptrNext = head;
 
-        if (head != nullptr) {
-            head->ptrPrev = newNode;
-        }
-
-        if (tail == nullptr) {
-            tail = newNode;
-        }
+        if (head != nullptr) head->ptrPrev = newNode;
+        if (tail == nullptr) tail = newNode;
 
         head = newNode;
         size++;
@@ -52,13 +45,8 @@ public:
         delete head;
         head = nextNode;
 
-        if (head != nullptr) {
-            head->ptrPrev = nullptr;
-        }
-
-        else {
-            tail = head;
-        }
+        if (head != nullptr) head->ptrPrev = nullptr;
+        else tail = head;
 
         size--;
     }
@@ -67,13 +55,8 @@ public:
         Node* newNode = new Node(data);
         newNode->ptrPrev = tail;
 
-        if (tail != nullptr) {
-            tail->ptrNext = newNode;
-        }
-
-        if (head == nullptr) {
-            head = newNode;
-        }
+        if (tail != nullptr) tail->ptrNext = newNode;
+        if (head == nullptr) head = newNode;
 
         tail = newNode;
         size++;
@@ -86,21 +69,14 @@ public:
         delete tail;
         tail = prevNode;
 
-        if (tail != nullptr) {
-            tail->ptrNext = nullptr;
-        }
-
-        else {
-            head = tail;
-        }
+        if (tail != nullptr) tail->ptrNext = nullptr;
+        else head = tail;
 
         size--;
     }
 
     void insert(T data, const int index) {
-        if (index == 0) {
-            push_front(data);
-        }
+        if (index == 0) push_front(data);
 
         else if (index <= size - 1) {
             Node* currentNode = get_at(index);
@@ -110,15 +86,11 @@ public:
             size++;
         }
 
-        else if (index == size) {
-            push_back(data);
-        }
+        else if (index == size) push_back(data);
     }
 
     void remove_at(const int index) {
-        if (index == 0) {
-            pop_front();
-        }
+        if (index == 0) pop_front();
 
         else if (index < size - 1) {
             Node* currentNode = get_at(index);
@@ -128,9 +100,7 @@ public:
             size--;
         }
 
-        else if (index == size - 1) {
-            pop_back();
-        }
+        else if (index == size - 1) pop_back();
     }
 
 private:
@@ -143,14 +113,12 @@ private:
         }
 
         T data;
-        Node* ptrNext;
-        Node* ptrPrev;
+        Node* ptrPrev, ptrNext;
     };
 
-    Node* head;
-    Node* tail;
+    Node* head, tail;
     int size;
-    
+
     Node* get_at(const int index) {
         Node* currentNode;
         int count;
@@ -160,9 +128,7 @@ private:
             count = 0;
 
             while (currentNode != nullptr) {
-                if (count == index) {
-                    return currentNode;
-                }
+                if (count == index) return currentNode;
 
                 currentNode = currentNode->ptrNext;
                 count++;
@@ -174,9 +140,7 @@ private:
             count = size - 1;
 
             while (currentNode != nullptr) {
-                if (count == index) {
-                    return currentNode;
-                }
+                if (count == index) return currentNode;
 
                 currentNode = currentNode->ptrPrev;
                 count--;
@@ -192,7 +156,7 @@ int main() {
     list.push_back(2);
     list.push_back(3);
 
-    for (int i = 0; i < list.get_size(); i++) {
+    for (size_t i = 0; i < list.get_size(); ++i) {
         cout << list[i] << endl;
     }
 
